@@ -1,0 +1,20 @@
+package main
+
+import (
+    "AdventOfCode2021/utils/files"
+)
+
+func main() {
+    input := files.ReadFile(1)
+    println(solvePart(input))
+}
+
+func solvePart(input []string) int {
+    result := 0
+    for _, s := range input {
+        println(s)
+    }
+
+
+    return result
+}
