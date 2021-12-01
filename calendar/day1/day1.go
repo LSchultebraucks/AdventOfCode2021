@@ -1,7 +1,7 @@
 package main
 
 import (
-	"AdventOfCode2021/utils/converter"
+	"AdventOfCode2021/utils/conv"
 	"AdventOfCode2021/utils/files"
 )
 
@@ -14,7 +14,7 @@ func main() {
 func solvePart1(input []string) int {
 	result := 0
 	for i, s := range input {
-		if i > 0 && converter.StringToNumber(s) > converter.StringToNumber(input[i-1]) {
+		if i > 0 && conv.StringToNumber(s) > conv.StringToNumber(input[i-1]) {
 			result++
 		}
 	}
@@ -25,8 +25,8 @@ func solvePart1(input []string) int {
 func solvePart2(input []string) int {
 	result := 0
 	for i := 3; i < len(input); i++ {
-		sum2 := converter.StringToNumber(input[i]) + converter.StringToNumber(input[i-1]) + converter.StringToNumber(input[i-2])
-		sum1 := converter.StringToNumber(input[i-1]) + converter.StringToNumber(input[i-2]) + converter.StringToNumber(input[i-3])
+		sum2 := conv.StringToNumber(input[i]) + conv.StringToNumber(input[i-1]) + conv.StringToNumber(input[i-2])
+		sum1 := conv.StringToNumber(input[i-1]) + conv.StringToNumber(input[i-2]) + conv.StringToNumber(input[i-3])
 		if sum2 > sum1 {
 			result++
 		}
