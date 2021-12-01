@@ -6,15 +6,22 @@ import (
 
 func main() {
     input := files.ReadFile(1)
-    println(solvePart(input))
+    println(solvePart1(input))
+    println(solvePart2(input))
 }
 
-func solvePart(input []string) int {
+func solvePart1(input []string) int {
     result := 0
-    for _, s := range input {
-        println(s)
+    for idx, s := range input {
+        println(idx, s)
     }
+    return result
+}
 
-
+func solvePart2(input []string) int {
+    result := 0
+    for idx, s := range input {
+        println(idx, s)
+    }
     return result
 }

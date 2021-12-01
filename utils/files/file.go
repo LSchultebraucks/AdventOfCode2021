@@ -8,7 +8,7 @@ import (
 )
 
 func ReadFile(day int) []string {
-	filename := fmt.Sprintf("calendar/day%d/day%d.txt", day, day)
+	filename := fmt.Sprintf("calendar/day%d/input.txt", day)
 	file, errRead := os.Open(filename)
 	if errRead != nil {
 		log.Fatalf("Failed to read file.")

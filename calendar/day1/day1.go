@@ -1,20 +1,21 @@
 package main
 
 import (
-	"AdventOfCode2021/utils/conv"
+	"AdventOfCode2021/utils/arrays"
 	"AdventOfCode2021/utils/files"
 )
 
 func main() {
 	input := files.ReadFile(1)
-	println(solvePart1(input))
-	println(solvePart2(input))
+	numbers := arrays.StringArrayToIntArray(input)
+	println(solvePart1(numbers))
+	println(solvePart2(numbers))
 }
 
-func solvePart1(input []string) int {
+func solvePart1(input []int) int {
 	result := 0
 	for i, s := range input {
-		if i > 0 && conv.StringToNumber(s) > conv.StringToNumber(input[i-1]) {
+		if i > 0 && s > input[i-1] {
 			result++
 		}
 	}
@@ -22,11 +23,11 @@ func solvePart1(input []string) int {
 	return result
 }
 
-func solvePart2(input []string) int {
+func solvePart2(input []int) int {
 	result := 0
 	for i := 3; i < len(input); i++ {
-		sum2 := conv.StringToNumber(input[i]) + conv.StringToNumber(input[i-1]) + conv.StringToNumber(input[i-2])
-		sum1 := conv.StringToNumber(input[i-1]) + conv.StringToNumber(input[i-2]) + conv.StringToNumber(input[i-3])
+		sum2 := arrays.Sum(input[i-2 : i+1])
+		sum1 := arrays.Sum(input[i-3 : i])
 		if sum2 > sum1 {
 			result++
 		}
