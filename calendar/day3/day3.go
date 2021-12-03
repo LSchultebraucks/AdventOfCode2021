@@ -1,8 +1,8 @@
 package main
 
 import (
+	"AdventOfCode2021/utils/bin"
 	"AdventOfCode2021/utils/files"
-	"strconv"
 )
 
 func main() {
@@ -33,9 +33,7 @@ func solvePart1(input []string) int {
 			epsilon += "1"
 		}
 	}
-	gammaNum, _ := strconv.ParseInt(gamma, 2, 64)
-	epsilonNum, _ := strconv.ParseInt(epsilon, 2, 64)
-	result = int(gammaNum * epsilonNum)
+	result = bin.ConvBinToInt(gamma) * bin.ConvBinToInt(epsilon)
 	return result
 }
 
@@ -64,8 +62,7 @@ func determineFilter(input []string, filter func(int, int) int) int {
 		offset++
 	}
 
-	filterNum, _ := strconv.ParseInt(newInput[0], 2, 32)
-	return int(filterNum)
+	return bin.ConvBinToInt(newInput[0])
 }
 
 func oxygenFilter(most, _ int) int {
