@@ -1,6 +1,7 @@
 package main
 
 import (
+	"AdventOfCode2021/utils/arrays"
 	"AdventOfCode2021/utils/bin"
 	"AdventOfCode2021/utils/files"
 )
@@ -43,8 +44,7 @@ func solvePart2(input []string) int {
 	return result
 }
 func determineFilter(input []string, filter func(int, int) int) int {
-	newInput := make([]string, len(input))
-	copy(newInput, input)
+	newInput := arrays.MakeCopy(input)
 
 	offset := 0
 

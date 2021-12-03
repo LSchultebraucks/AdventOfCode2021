@@ -17,3 +17,9 @@ func StringArrayToIntArray(values []string) []int {
 	}
 	return intValues
 }
+
+func MakeCopy(arr []string) []string {
+	newArr := make([]string, len(arr))
+	copy(newArr, arr)
+	return newArr
+}
