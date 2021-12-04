@@ -8,11 +8,11 @@ import (
 
 func main() {
 	input := files.ReadFile(4)
-	println(solvePart1(input))
-	println(solvePart2(input))
+	println(SolvePart1(input))
+	println(SolvePart2(input))
 }
 
-func solvePart1(input []string) int {
+func SolvePart1(input []string) int {
 	result := 0
 	numbersDrawn := arrays.StringArrayToIntArray(strings.Split(input[0], ","))
 	bingoBoards := make([][][]int, (len(input)-1)/6)
@@ -27,7 +27,7 @@ func solvePart1(input []string) int {
 	return result
 }
 
-func solvePart2(input []string) int {
+func SolvePart2(input []string) int {
 	result := 0
 	numbersDrawn := arrays.StringArrayToIntArray(strings.Split(input[0], ","))
 	bingoBoards := make([][][]int, (len(input)-1)/6)
