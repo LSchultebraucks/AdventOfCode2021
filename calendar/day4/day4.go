@@ -21,9 +21,8 @@ func SolvePart1(input []string) int {
 		bingoBoards[bingoBoardIdx] = readBingoBoard(input, idx)
 		bingoBoardIdx++
 	}
-	idxBoard, number := drawNumbers(numbersDrawn, bingoBoards)
-	winnerBingoBoardSum := arrays.PositiveNumbersSum(bingoBoards[idxBoard])
-	result = number * winnerBingoBoardSum
+	boardsWithBingo := playBingo(numbersDrawn, bingoBoards)
+	result = boardsWithBingo[0][1]
 	return result
 }
 
@@ -36,11 +35,12 @@ func SolvePart2(input []string) int {
 		bingoBoards[bingoBoardIdx] = readBingoBoard(input, idx)
 		bingoBoardIdx++
 	}
-	result = drawNumbersLastToWin(numbersDrawn, bingoBoards)
+	boardsWithBingo := playBingo(numbersDrawn, bingoBoards)
+	result = boardsWithBingo[len(boardsWithBingo)-1][1]
 	return result
 }
 
-func drawNumbersLastToWin(numbersDrawn []int, bingoBoards [][][]int) int {
+func playBingo(numbersDrawn []int, bingoBoards [][][]int) [][]int {
 	boardsWithBingo := make([][]int, len(bingoBoards))
 	totalBingoBoards := len(bingoBoards)
 	bingoBoardsWithBingoCnt := 0
@@ -55,12 +55,12 @@ func drawNumbersLastToWin(numbersDrawn []int, bingoBoards [][][]int) int {
 				boardsWithBingo[bingoBoardsWithBingoCnt][1] = number * arrays.PositiveNumbersSum(bingoBoards[idxBoard])
 				bingoBoardsWithBingoCnt++
 				if bingoBoardsWithBingoCnt == totalBingoBoards {
-					return boardsWithBingo[bingoBoardsWithBingoCnt-1][1]
+					return boardsWithBingo
 				}
 			}
 		}
 	}
-	return boardsWithBingo[bingoBoardsWithBingoCnt-1][1]
+	return boardsWithBingo[:totalBingoBoards]
 }
 
 func notAlreadyAddedAsBingo(boardsWithBingo [][]int, idx int) bool {
@@ -71,17 +71,6 @@ func notAlreadyAddedAsBingo(boardsWithBingo [][]int, idx int) bool {
 		}
 	}
 	return !isAdded
-}
-
-func drawNumbers(numbersDrawn []int, bingoBoards [][][]int) (int, int) {
-	for _, number := range numbersDrawn {
-		bingoBoards = markNumberInBingoBoards(number, bingoBoards)
-		idxBoard := checkForBingo(bingoBoards)
-		if idxBoard != -1 {
-			return idxBoard, number
-		}
-	}
-	panic("No bingo found")
 }
 
 func markNumberInBingoBoards(number int, bingoBoards [][][]int) [][][]int {
