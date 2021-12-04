@@ -8,11 +8,11 @@ import (
 func main() {
 	input := files.ReadFile(1)
 	numbers := arrays.StringArrayToIntArray(input)
-	println(solvePart1(numbers))
-	println(solvePart2(numbers))
+	println(SolvePart1(numbers))
+	println(SolvePart2(numbers))
 }
 
-func solvePart1(input []int) int {
+func SolvePart1(input []int) int {
 	result := 0
 	for i, s := range input {
 		if i > 0 && s > input[i-1] {
@@ -23,7 +23,7 @@ func solvePart1(input []int) int {
 	return result
 }
 
-func solvePart2(input []int) int {
+func SolvePart2(input []int) int {
 	result := 0
 	for i := 3; i < len(input); i++ {
 		sum2 := arrays.Sum(input[i-2 : i+1])

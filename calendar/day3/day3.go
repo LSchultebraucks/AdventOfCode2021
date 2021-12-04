@@ -8,11 +8,11 @@ import (
 
 func main() {
 	input := files.ReadFile(3)
-	println(solvePart1(input))
-	println(solvePart2(input))
+	println(SolvePart1(input))
+	println(SolvePart2(input))
 }
 
-func solvePart1(input []string) int {
+func SolvePart1(input []string) int {
 	result := 0
 	commonBinaryOne := make([]int, len(input[0]))
 	gamma := ""
@@ -38,7 +38,7 @@ func solvePart1(input []string) int {
 	return result
 }
 
-func solvePart2(input []string) int {
+func SolvePart2(input []string) int {
 	result := 0
 	result = determineFilter(input, oxygenFilter) * determineFilter(input, co2Filter)
 	return result
