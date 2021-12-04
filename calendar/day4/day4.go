@@ -53,9 +53,6 @@ func playBingo(numbersDrawn []int, bingoBoards [][][]int) [][]int {
 				boardsWithBingo[bingoBoardsWithBingoCnt][0] = idxBoard
 				boardsWithBingo[bingoBoardsWithBingoCnt][1] = number * arrays.PositiveNumbersSum(bingoBoards[idxBoard])
 				bingoBoardsWithBingoCnt++
-				if bingoBoardsWithBingoCnt == totalBingoBoards {
-					return boardsWithBingo
-				}
 			}
 		}
 	}
