@@ -14,13 +14,7 @@ func main() {
 
 func SolvePart1(input []string) int {
 	result := 0
-	numbersDrawn := arrays.StringArrayToIntArray(strings.Split(input[0], ","))
-	bingoBoards := make([][][]int, (len(input)-1)/6)
-	bingoBoardIdx := 0
-	for idx := 2; idx < len(input); idx += 6 {
-		bingoBoards[bingoBoardIdx] = readBingoBoard(input, idx)
-		bingoBoardIdx++
-	}
+	numbersDrawn, bingoBoards := parseInput(input)
 	boardsWithBingo := playBingo(numbersDrawn, bingoBoards)
 	result = boardsWithBingo[0][1]
 	return result
@@ -28,6 +22,13 @@ func SolvePart1(input []string) int {
 
 func SolvePart2(input []string) int {
 	result := 0
+	numbersDrawn, bingoBoards := parseInput(input)
+	boardsWithBingo := playBingo(numbersDrawn, bingoBoards)
+	result = boardsWithBingo[len(boardsWithBingo)-1][1]
+	return result
+}
+
+func parseInput(input []string) ([]int, [][][]int) {
 	numbersDrawn := arrays.StringArrayToIntArray(strings.Split(input[0], ","))
 	bingoBoards := make([][][]int, (len(input)-1)/6)
 	bingoBoardIdx := 0
@@ -35,9 +36,7 @@ func SolvePart2(input []string) int {
 		bingoBoards[bingoBoardIdx] = readBingoBoard(input, idx)
 		bingoBoardIdx++
 	}
-	boardsWithBingo := playBingo(numbersDrawn, bingoBoards)
-	result = boardsWithBingo[len(boardsWithBingo)-1][1]
-	return result
+	return numbersDrawn, bingoBoards
 }
 
 func playBingo(numbersDrawn []int, bingoBoards [][][]int) [][]int {
@@ -84,15 +83,6 @@ func markNumberInBingoBoards(number int, bingoBoards [][][]int) [][][]int {
 		}
 	}
 	return bingoBoards
-}
-
-func checkForBingo(bingoBoards [][][]int) int {
-	for idx := range bingoBoards {
-		if checkForBingoInRows(bingoBoards[idx]) || checkForBingoInColumns(bingoBoards[idx]) {
-			return idx
-		}
-	}
-	return -1
 }
 
 func checkForBingoExclude(bingoBoards [][][]int, exclude []int) int {
