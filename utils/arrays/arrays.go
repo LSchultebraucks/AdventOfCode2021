@@ -64,3 +64,13 @@ func ExtractFirstValues(arr [][]int) []int {
 	}
 	return values
 }
+
+func MaxValue(arr []int) int {
+	max := arr[0]
+	for _, value := range arr {
+		if value > max {
+			max = value
+		}
+	}
+	return max
+}
