@@ -15,35 +15,26 @@ func main() {
 }
 
 func SolvePart1(input []string) int {
-	result := 0
 	positions := parseInput(input)
-	maxPositions := arrays.MaxValue(positions)
-	fuelMap := make(map[int]int, maxPositions)
-	for _, pos := range positions {
-		if fuelMap[pos] == 0 {
-			for _, pos2 := range positions {
-				fuelMap[pos] += dist(pos, pos2)
-			}
-		}
-	}
-	result = getMinFuel(fuelMap)
-	return result
+	return determineFuel(positions, dist)
 }
 
 func SolvePart2(input []string) int {
-	result := 0
 	positions := parseInput(input)
+	return determineFuel(positions, dist2)
+}
+
+func determineFuel(positions []int, distFunc func(int, int) int) int {
 	maxPositions := arrays.MaxValue(positions)
 	fuelMap := make(map[int]int, maxPositions)
 	for pos := 0; pos < maxPositions; pos++ {
 		if fuelMap[pos] == 0 {
 			for _, pos2 := range positions {
-				fuelMap[pos] += dist2(pos, pos2)
+				fuelMap[pos] += distFunc(pos, pos2)
 			}
 		}
 	}
-	result = getMinFuel(fuelMap)
-	return result
+	return getMinFuel(fuelMap)
 }
 
 func getMinFuel(fuel map[int]int) int {
@@ -71,9 +62,9 @@ func dist(a, b int) int {
 
 func dist2(a, b int) int {
 	result := 0
-	dist := dist(a, b)
+	distance := dist(a, b)
 	velocity := 1
-	for i := 0; i < dist; i++ {
+	for i := 0; i < distance; i++ {
 		result += velocity
 		velocity++
 	}
