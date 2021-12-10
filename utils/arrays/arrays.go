@@ -74,3 +74,15 @@ func MaxValue(arr []int) int {
 	}
 	return max
 }
+
+func MiddleScore(arr []int) int {
+	middle := len(arr) / 2
+	return arr[middle]
+}
+
+func ReverseStrings(arr []string) []string {
+	for i, j := 0, len(arr)-1; i < j; i, j = i+1, j-1 {
+		arr[i], arr[j] = arr[j], arr[i]
+	}
+	return arr
+}
