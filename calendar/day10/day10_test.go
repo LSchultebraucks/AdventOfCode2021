@@ -29,12 +29,10 @@ func TestSolvePart2WithExample(t *testing.T) {
 	}
 }
 
-/*
 func TestSolvePart2(t *testing.T) {
-	expected := 0
+	expected := 3260812321
 	actual := SolvePart2(files.ReadFile(10))
 	if actual != expected {
 		t.Errorf("Expected %d, got %d", expected, actual)
 	}
 }
-*/
