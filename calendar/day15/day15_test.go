@@ -21,9 +21,8 @@ func TestSolvePart1(t *testing.T) {
 	}
 }
 
-/*
 func TestSolvePart2WithExample(t *testing.T) {
-	expected := 0
+	expected := 315
 	actual := SolvePart2(files.ReadTestInputFile(15))
 	if actual != expected {
 		t.Errorf("Expected %d, got %d", expected, actual)
@@ -31,10 +30,9 @@ func TestSolvePart2WithExample(t *testing.T) {
 }
 
 func TestSolvePart2(t *testing.T) {
-	expected := 0
+	expected := 2897
 	actual := SolvePart2(files.ReadFile(15))
 	if actual != expected {
 		t.Errorf("Expected %d, got %d", expected, actual)
 	}
 }
-*/

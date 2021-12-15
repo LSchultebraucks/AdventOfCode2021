@@ -9,6 +9,7 @@ import (
 func main() {
 	input := files.ReadFile(15)
 	println(SolvePart1(input))
+	println(SolvePart2(input))
 }
 
 type Coord struct {
@@ -28,6 +29,27 @@ func SolvePart1(input []string) int {
 	return result
 }
 
+func SolvePart2(input []string) int {
+	result := 0
+	cavern := parseInput(input)
+	width := len(input[0])
+	height := width // input is square
+	start := Coord{Y: 0, X: 0}
+	end := Coord{Y: height*5 - 1, X: width*5 - 1}
+	bigCavern := make(Cavern)
+	for k, v := range cavern {
+		for r := 0; r < 5; r++ {
+			for c := 0; c < 5; c++ {
+				increase := r + c
+				value := 1 + (v+increase-1)%9
+				bigCavern[Coord{k.Y + r*height, k.X + c*width}] = value
+			}
+		}
+	}
+	result = lowestRisk(bigCavern, &start, &end)
+	return result
+}
+
 func lowestRisk(cavern Cavern, start *Coord, end *Coord) int {
 	gScore := Cavern{
 		*start: 0,
@@ -35,15 +57,15 @@ func lowestRisk(cavern Cavern, start *Coord, end *Coord) int {
 	fScore := Cavern{
 		*start: start.distance(end),
 	}
-	workList := map[Coord]bool{
+	coordMap := map[Coord]bool{
 		*start: true,
 	}
-	history := make(map[Coord]Coord)
+	historyMap := make(map[Coord]Coord)
 
-	for len(workList) != 0 {
+	for len(coordMap) != 0 {
 		currentScore := math.MaxInt
 		var current Coord
-		for v := range workList {
+		for v := range coordMap {
 			if score, ok := fScore[v]; ok {
 				if score < currentScore {
 					current = v
@@ -51,28 +73,29 @@ func lowestRisk(cavern Cavern, start *Coord, end *Coord) int {
 				}
 			}
 		}
-		delete(workList, current)
+		delete(coordMap, current)
 
 		if current == *end {
 			score := 0
 			for current != *start {
 				score += cavern[current]
-				current = history[current]
+				current = historyMap[current]
 			}
 			return score
 		}
 		for _, n := range cavern.Neighbors(current) {
-			proposedScore := gScore[current] + cavern[n]
-			if previousScore, ok := gScore[n]; !ok || proposedScore < previousScore {
-				history[n] = current
-				gScore[n] = proposedScore
-				fScore[n] = proposedScore + n.distance(end)
-				if !workList[n] {
-					workList[n] = true
+			possibleScore := gScore[current] + cavern[n]
+			if previousScore, ok := gScore[n]; !ok || possibleScore < previousScore {
+				historyMap[n] = current
+				gScore[n] = possibleScore
+				fScore[n] = possibleScore + n.distance(end)
+				if !coordMap[n] {
+					coordMap[n] = true
 				}
 			}
 		}
 	}
+	panic("No path found")
 	return -1
 }
 
